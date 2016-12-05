@@ -60,7 +60,8 @@ namespace GameServerConsole
             TimeSpan interval = new TimeSpan(0, 0, 0, 1);
             // repeat elapsed event until stop
             gameTimer.AutoReset = true;
-            gameTimer.Interval = interval.TotalSeconds;
+            // Interval has to be specified in milliseconds!!
+            gameTimer.Interval = interval.TotalMilliseconds;
             // catch elapsed event
             gameTimer.Elapsed += GameTimer_Elapsed;
 
@@ -127,37 +128,44 @@ namespace GameServerConsole
         // Handle count down to start and Game time
         private static void GameTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
-            gameStart -= new TimeSpan(0, 0, 0, 1);
-            // if we have counted down
-            if(myGameSate == GameState.STARTING && gameStart.TotalSeconds <= 0 )
+            if (myGameSate == GameState.STARTING)
             {
-                //gameStart = new TimeSpan(0, 0, 0, 20);
-                myGameSate = GameState.STARTED;
+                gameStart -= new TimeSpan(0, 0, 0, 1);
+                // if we have counted down
+                if (myGameSate == GameState.STARTING && gameStart.TotalSeconds <= 0)
+                {
+                    //gameStart = new TimeSpan(0, 0, 0, 20);
+                    myGameSate = GameState.STARTED;
+                }
+                // is we are ounting down
+                if (myGameSate == GameState.STARTING && gameStart.TotalSeconds >= 0)
+                {
+                    Console.WriteLine("Time to Start {0} ", gameStart.TotalSeconds);
+                    DataHandler.sendNetMess<TimerData>(server,
+                        new TimerData { gamestate = GameState.STARTING, Seconds = (int)gameStart.TotalSeconds },
+                        SENT.TOALL);
+                }
             }
-            // is we are ounting down
-            if(myGameSate ==  GameState.STARTING && gameStart.TotalSeconds >= 0)
-            {
-                DataHandler.sendNetMess<TimerData>(server, 
-                    new TimerData { gamestate = GameState.STARTING, Seconds = (int)gameStart.TotalSeconds }, 
-                    SENT.TOALL);
-            }
-            // if we have started the game and counted down
-            if (myGameSate == GameState.STARTED && gameDuration.TotalSeconds <= 0)
-            {
-                gameDuration -= new TimeSpan(0, 0, 0, 1);
-                DataHandler.sendNetMess<TimerData>(server,
-                    new TimerData { gamestate = GameState.FINISHED, Seconds = (int)gameDuration.TotalSeconds },
-                    SENT.TOALL);
-            }
-
-            if (myGameSate == GameState.STARTED && gameDuration.TotalSeconds >= 0)
+            if (myGameSate == GameState.STARTED)
             {
                 gameDuration -= new TimeSpan(0, 0, 0, 1);
-                DataHandler.sendNetMess<TimerData>(server,
-                    new TimerData { gamestate = GameState.STARTED, Seconds = (int)gameDuration.TotalSeconds },
-                    SENT.TOALL);
-            }
+                // if we have started the game and counted down
+                if (myGameSate == GameState.STARTED && gameDuration.TotalSeconds <= 0)
+                {
+                    DataHandler.sendNetMess<TimerData>(server,
+                        new TimerData { gamestate = GameState.FINISHED,
+                                    Seconds = (int)gameDuration.TotalSeconds },
+                        SENT.TOALL);
+                }
 
+                if (myGameSate == GameState.STARTED && gameDuration.TotalSeconds >= 0)
+                {
+                    Console.WriteLine("Game Time remaining {0} ", gameDuration.TotalSeconds);
+                    DataHandler.sendNetMess<TimerData>(server,
+                        new TimerData { gamestate = GameState.STARTED, Seconds = (int)gameDuration.TotalSeconds },
+                        SENT.TOALL);
+                }
+            }
 
         }
 

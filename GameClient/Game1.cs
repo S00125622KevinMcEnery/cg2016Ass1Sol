@@ -270,8 +270,11 @@ namespace Client
             {
                 case GameState.STARTING:
                     timeMessage = "Time to Start " + timerData.Seconds.ToString();
+                    myState = timerData.gamestate;                    
                     break;
                 case GameState.STARTED:
+                    timeMessage = "Time Remaining " + timerData.Seconds.ToString();
+                    myState = timerData.gamestate;
                     break;
                 case GameState.FINISHED:
                     break;
