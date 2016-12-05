@@ -20,6 +20,7 @@ namespace Client
         private static Vector2 worldSize;
         private static Rectangle worldRect;
         public static Player player;
+        public static string timerMessage = string.Empty;
 
         #region Lidgren Methods
         // Start the server and connect
@@ -98,8 +99,15 @@ namespace Client
                 return reply;
             if ((reply = process(DataHandler.ExtractMessage<ScoreData>(inMess))) != null)
                 return reply;
-
+            if((reply = process(DataHandler.ExtractMessage<TimerData>(inMess))) != null)
+                return reply;
             return reply;
+        }
+
+        private static object process(TimerData timerData)
+        {
+            if (timerData == null) return null;
+            return timerData;
         }
 
         private static object process(CollectableData collectableData)

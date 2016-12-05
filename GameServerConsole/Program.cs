@@ -55,8 +55,15 @@ namespace GameServerConsole
             server = new NetServer(config);
             config.AutoFlushSendQueue = true;
             server.Start();
-            gameTimer.Interval = new TimeSpan(0, 0, 0, 1).TotalSeconds;
+            // Create a game timer
+            gameTimer = new System.Timers.Timer();
+            TimeSpan interval = new TimeSpan(0, 0, 0, 1);
+            // repeat elapsed event until stop
+            gameTimer.AutoReset = true;
+            gameTimer.Interval = interval.TotalSeconds;
+            // catch elapsed event
             gameTimer.Elapsed += GameTimer_Elapsed;
+
             //server.RegisterReceivedCallback(new SendOrPostCallback(GotMessage));
             //server.MessageReceivedEvent.WaitOne();
             //for the server
@@ -124,7 +131,7 @@ namespace GameServerConsole
             // if we have counted down
             if(myGameSate == GameState.STARTING && gameStart.TotalSeconds <= 0 )
             {
-                gameStart = new TimeSpan(0, 0, 0, 20);
+                //gameStart = new TimeSpan(0, 0, 0, 20);
                 myGameSate = GameState.STARTED;
             }
             // is we are ounting down
@@ -321,6 +328,11 @@ namespace GameServerConsole
             switch (p.header)
             {
                 case "Join":
+                    if (Players.Count() == 0)
+                    {
+                        myGameSate = GameState.STARTING;
+                        gameTimer.Start();
+                    }
                     Players.Add(p);
                     // send the message to all clients that players are joined
                     foreach (PlayerData player in Players)

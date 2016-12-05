@@ -50,7 +50,7 @@ namespace Client
         private InputEngine inputEngine;
         private bool playerJoined;
 
-        GameState myState;
+        GameState myState = GameState.WAITING;
         #endregion
         public Game1()
         {
@@ -264,10 +264,19 @@ namespace Client
 
         }
 
-        private void process(TimerData tmess)
+        private object process(TimerData timerData)
         {
-            if (tmess.gamestate == GameState.STARTING)
-                timeMessage = "Time to Game Start is " + tmess.Seconds.ToString();
+            switch (timerData.gamestate)
+            {
+                case GameState.STARTING:
+                    timeMessage = "Time to Start " + timerData.Seconds.ToString();
+                    break;
+                case GameState.STARTED:
+                    break;
+                case GameState.FINISHED:
+                    break;
+            }
+            return timerData;
         }
 
         private void process(ScoreData sd)
