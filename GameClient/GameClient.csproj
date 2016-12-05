@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{0C9E90B2-FB3C-44B4-8EDA-6405F74B9C43}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Assessment12017Sol</RootNamespace>
+    <AssemblyName>Assessment12017Sol</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <MonoGamePlatform>Windows</MonoGamePlatform>
+    <MonoGameContentBuilderExe>
+    </MonoGameContentBuilderExe>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Windows\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;WINDOWS</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Windows\Release\</OutputPath>
+    <DefineConstants>TRACE;WINDOWS</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Icon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="AnimatedSprite.cs" />
+    <Compile Include="Collectable.cs" />
+    <Compile Include="ChasingEnemy.cs" />
+    <Compile Include="Enemy.cs" />
+    <Compile Include="FadeText.cs" />
+    <Compile Include="FollowCamera.cs" />
+    <Compile Include="Game1.cs" />
+    <Compile Include="Helpers.cs" />
+    <Compile Include="InputEngine.cs" />
+    <Compile Include="LidgrenClient.cs" />
+    <Compile Include="Loader.cs" />
+    <Compile Include="OtherPlayer.cs" />
+    <Compile Include="Player.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SimpleKeyboard.cs" />
+    <Compile Include="SplashScreen.cs" />
+    <Compile Include="utility.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="MonoGame.Framework">
+      <HintPath>$(MSBuildProgramFiles32)\MonoGame\v3.0\Assemblies\Windows\MonoGame.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net40\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\Audio\1b.wav" />
+    <Content Include="Content\Audio\2b.wav" />
+    <Content Include="Content\Audio\PlayerDirection\0.wav" />
+    <Content Include="Content\Audio\PlayerDirection\1.wav" />
+    <Content Include="Content\Audio\PlayerDirection\2.wav" />
+    <Content Include="Content\Audio\PlayerDirection\3.wav" />
+    <Content Include="Content\Audio\PlayerDirection\4.wav" />
+    <Content Include="Content\Collectables\Five.png" />
+    <Content Include="Content\Collectables\Four.png" />
+    <Content Include="Content\Collectables\One.png" />
+    <Content Include="Content\Collectables\Three.png" />
+    <Content Include="Content\Collectables\Two.png" />
+    <Content Include="Content\PlayerImages\Badges_0.png" />
+    <Content Include="Content\PlayerImages\Badges_1.png" />
+    <Content Include="Content\PlayerImages\Badges_10.png" />
+    <Content Include="Content\PlayerImages\Badges_11.png" />
+    <Content Include="Content\PlayerImages\Badges_12.png" />
+    <Content Include="Content\PlayerImages\Badges_13.png" />
+    <Content Include="Content\PlayerImages\Badges_2.png" />
+    <Content Include="Content\PlayerImages\Badges_3.png" />
+    <Content Include="Content\PlayerImages\Badges_4.png" />
+    <Content Include="Content\PlayerImages\Badges_5.png" />
+    <Content Include="Content\PlayerImages\Badges_6.png" />
+    <Content Include="Content\PlayerImages\Badges_7.png" />
+    <Content Include="Content\PlayerImages\Badges_8.png" />
+    <Content Include="Content\PlayerImages\Badges_9.png" />
+    <Content Include="Content\rectangle.jpg" />
+    <Content Include="Content\Textures\background.png" />
+    <Content Include="Content\Textures\chaser.png" />
+    <Content Include="Content\Textures\down.png" />
+    <Content Include="Content\Textures\left.png" />
+    <Content Include="Content\Textures\right.png" />
+    <Content Include="Content\Textures\spindash.png" />
+    <Content Include="Content\Textures\stand.png" />
+    <Content Include="Content\Textures\up.png" />
+    <Content Include="Icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <MonoGameContentReference Include="Content\Content.mgcb" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GameData\GameData.csproj">
+      <Project>{89aad3e4-0513-458c-8d21-d803417a4f46}</Project>
+      <Name>GameData</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Lidgren.Network\Lidgren.Network.csproj">
+      <Project>{49BA1C69-6104-41AC-A5D8-B54FA9F696E8}</Project>
+      <Name>Lidgren.Network</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Content\Fonts\PlayerFont.spritefont" />
+    <None Include="Content\Fonts\ScoreFont.spritefont" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
